@@ -1,0 +1,107 @@
+HLT     = 0b1000000000000000  # Halt clock
+MI      = 0b0100000000000000  # Memory address register in
+RI      = 0b0010000000000000  # RAM data in
+RO      = 0b0001000000000000  # RAM data out
+ROM     = 0b0011000000000000  # ROM data out
+uR      = 0b0000100000000000  # Reset uCode counter
+II      = 0b0000010000000000  # Instruction register in
+AI      = 0b0000001000000000  # A register in
+AO      = 0b0000000100000000  # A register out
+
+EO      = 0b0000000010000000  # ALU out
+SU      = 0b0000000001000000  # ALU subtract
+BI      = 0b0000000000100000  # B register in
+OI      = 0b0000000000010000  # Output register in
+CE      = 0b0000000000001000  # Program counter enable
+CO      = 0b0000000000000100  # Program counter out
+J       = 0b0000000000000010  # Jump (program counter in)
+FI      = 0b0000000000000001  # Flags In
+
+
+data = [
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 000000 - NOP 
+  [MI|CO,  ROM|II|CE,  MI|ROM,      RO|AI|CE,       uR,         0,           0,  0,0,0,0,0,0,0,0,0],   # 000001 - LDA
+  [MI|CO,  ROM|II|CE,  CO|MI,       ROM|MI,         BI|RO|CE,   EO|AI,       uR, 0,0,0,0,0,0,0,0,0],   # 000010 - ADD
+  [MI|CO,  ROM|II|CE,  CO|MI,       ROM|MI,         BI|RO|CE,   EO|AI|SU,    uR, 0,0,0,0,0,0,0,0,0],   # 000011 - SUB
+  [MI|CO,  ROM|II|CE,  CO|MI,       ROM|MI,         AO|RI|CE,   uR,          0,  0,0,0,0,0,0,0,0,0],   # 000100 - STA
+  [MI|CO,  ROM|II|CE,  CO|MI,       ROM|AI|CE,      uR,         0,           0,  0,0,0,0,0,0,0,0,0],   # 000101 - LDI
+  [MI|CO,  ROM|II|CE,  CO|MI,       ROM|J,          uR,         0,           0,  0,0,0,0,0,0,0,0,0],   # 000110 - JMP
+  [MI|CO,  ROM|II|CE,  CE,          uR,             0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 000111 - JC
+  [MI|CO,  ROM|II|CE,  CE,          uR,             0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 001000 - JZ
+  [MI|CO,  ROM|II|CE,  AO|OI,       uR,             0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 001001 - OUT
+  [MI|CO,  ROM|II|CE,  HLT,         0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 001010 - HLT
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 001011
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 001100
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 001101
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 001110
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 001111
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 010000
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 010001
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 010010
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 010011
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 010100
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 010101
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 010110
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 010111
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 011000
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 011001
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 011010
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 011011
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 011100
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 011101
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 011110
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 011111
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 100000
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 100001
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 100010
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 100011
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 100100
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 100101
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 100110
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 100111
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 101000
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 101001
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 101010
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,           0,  0,0,0,0,0,0,0,0,0],   # 101011
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 101100
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 101101
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 101110
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 101111
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 110000
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 110001
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 110010
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 110011
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 110100
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 110101
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 110110
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 110111
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111000
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111001
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111010
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111011
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111100
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111101
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111110 - OUT
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0]    # 111111 - HLT
+]
+
+
+
+
+output_MSB = bytearray([0xFF] * 32768)  # For MSB
+output_LSB = bytearray([0xFF] * 32768)  # For LSB
+
+for address in range(1024):
+  opCode = (address & 0b1111110000) >> 4
+  step   = (address & 0b0000001111)
+  
+  value  = data[opCode][step]
+
+  output_MSB[address] = (value & 0xFF00) >> 8
+  output_LSB[address] = (value & 0x00FF)
+
+with open("MSB.bin", "wb") as out_file_MSB:
+    out_file_MSB.write(output_MSB)
+
+with open("LSB.bin", "wb") as out_file_LSB:
+    out_file_LSB.write(output_LSB)
